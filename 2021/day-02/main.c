@@ -4,18 +4,12 @@
 
 int main() { 
 
-    /* Unused variables */
-    //int file_counter_size = 0; 
-    //char c; // throw away value for now 
-    char forward[] = "forward ";
-    char up[] = "up ";
-    char down[] = "down "; 
+    uint64_t i = 0; 
 
     uint64_t counter_forward = 0; 
     uint64_t counter_depth = 0; 
 
     const unsigned MAX_LENGTH = 256; 
-    char buffer[MAX_LENGTH]; 
 
     FILE *in_file = fopen("input.txt", "r"); 
     FILE *out_file = fopen("answer.txt", "w"); 
@@ -24,35 +18,38 @@ int main() {
         printf("ERROR! Count not open file!\n"); 
         exit(1); 
     }
-
-   // fscanf(in_file, "%s%i", buffer, i); 
-
-    /* Checking if fgets command works */ 
-    while(fgets(buffer, MAX_LENGTH, in_file)) {  
-
-        char buffer_inline[MAX_LENGTH]; 
+   
+    char buffer_inline[MAX_LENGTH]; 
+    
+    while((fscanf(in_file, "%s%llu", buffer_inline, &i)) != EOF) {  
+        //printf("amount: %llu\n", i);         
+        // test correct input 
+        // printf("movement: %s spacing: %d\n", buffer_inline, i); 
         
-       // fscanf(in_file, "%s%d", buffer, i); 
-        for(int i = 0; i < 10; i++) {
+        if(strcmp(buffer_inline, "forward") == 0) { 
+            counter_forward += i;
+        }
 
-         fscanf(in_file, "%s%d", buffer_inline, &i); 
+        if(strcmp(buffer_inline, "up") == 0) { 
+            counter_depth -= i;
+        }
 
-         if(strcmp(buffer, strcat(forward, strcat(i, "\n"))) == 0) { 
-                counter_forward++; 
-            }
-            if(strcmp(buffer, "down i") == 0) { 
-                counter_depth++; 
-            }
-            if(strcmp(buffer, "up i") == 0) { 
-                counter_depth--;
-            }
-
+        if(strcmp(buffer_inline, "down") == 0) { 
+            counter_depth += i;
         }
     }
+    
+    fprintf(out_file, "Below is the position of the horizontal and depth of the submarine\n"); 
+    fprintf(out_file, "Horizontal: %llu\n", counter_forward); 
+    fprintf(out_file, "Depth: %llu\n", counter_depth); 
+    fprintf(out_file, "Multiplier: %llu\n", counter_forward * counter_depth); 
 
+    printf("Below is the result of our submarine movements, in additon we have the same data in the file 'answer.txt'\n");
     printf("Horizontal: %llu\n", counter_forward);
-    printf("Depth: %llu\n", counter_depth);  
-
+    printf("Depth: %llu\n", counter_depth); 
+    printf("Multiplier: %llu\n", counter_forward * counter_depth);  
+    
+    
     fclose(in_file); 
     fclose(out_file); 
 
