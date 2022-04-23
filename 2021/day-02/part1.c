@@ -12,7 +12,7 @@ int main() {
     const unsigned MAX_LENGTH = 256; 
 
     FILE *in_file = fopen("input.txt", "r"); 
-    FILE *out_file = fopen("answer.txt", "w"); 
+    FILE *out_file = fopen("answer-part1.txt", "w"); 
 
     if(in_file == NULL || out_file == NULL) { 
         printf("ERROR! Count not open file!\n"); 
