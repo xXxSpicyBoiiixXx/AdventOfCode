@@ -29,17 +29,20 @@ int main() {
         
         if(strcmp(buffer_inline, "forward") == 0) { 
             counter_forward += i;
+            counter_depth += (aim * i); 
         }
 
         if(strcmp(buffer_inline, "up") == 0) { 
-            counter_depth -= i;
+         //   counter_depth -= i;
+            aim -= i;
         }
 
         if(strcmp(buffer_inline, "down") == 0) { 
-            counter_depth += i;
+       //     counter_depth += i;
+            aim += i; 
         }
     }
-    
+   
     fprintf(out_file, "Below is the position of the horizontal and depth of the submarine\n"); 
     fprintf(out_file, "Horizontal: %llu\n", counter_forward); 
     fprintf(out_file, "Depth: %llu\n", counter_depth); 
