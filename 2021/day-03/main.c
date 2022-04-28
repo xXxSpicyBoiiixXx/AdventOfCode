@@ -7,7 +7,8 @@ int main() {
     uint64_t power_consumption = 0;
     uint64_t gamma_rate = 0; // Most common bit
     uint64_t epislon_rate = 0; // Least common bit, the inverse of gamma_rate 
-    uint64_t bit_placement = 0;
+    uint64_t bit_placement[];
+    uint64_t counter = 0; 
     char binary_code; 
 
     //const unsigned MAX_LENGTH = 256; 
@@ -30,7 +31,13 @@ int main() {
     while((binary_code = fgetc(in_file)) != EOF) {
         //printf("%c", binary_code);
         if(binary_code != "/n") { 
-            
+          bit_placement[counter] = binary_code; 
+          counter++;
+          printf("%c", binary_code); 
+        }
+
+        if(binary_code == "/n") { 
+          counter = 0; 
         }
     }
 
