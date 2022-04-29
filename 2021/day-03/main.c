@@ -5,10 +5,10 @@
 int main() { 
 	
     uint64_t power_consumption = 0;
-    uint64_t gamma_rate = 0; // Most common bit
+    uint64_t gamma_rate[11]; // Most common bit
     uint64_t epislon_rate = 0; // Least common bit, the inverse of gamma_rate 
-    uint64_t bit_placement[];
-    uint64_t counter = 0; 
+    uint64_t bit_placement = 0;
+    uint64_t binary_counter[11]; 
     char binary_code; 
 
     //const unsigned MAX_LENGTH = 256; 
@@ -30,17 +30,31 @@ int main() {
 
     while((binary_code = fgetc(in_file)) != EOF) {
         //printf("%c", binary_code);
-        if(binary_code != "/n") { 
-          bit_placement[counter] = binary_code; 
-          counter++;
-          printf("%c", binary_code); 
+
+        if(strcmp(&binary_code, "/n") != 0 && bit_placement < 12) { 
+            
+            if(strcmp(&binary_code, "1") == 0) { 
+                binary_counter[bit_placement] += 1;
+            }
+
+            if(strcmp(&binary_code, "0") == 0) { 
+                binary_counter[bit_placement] -= 1; 
+            } 
         }
 
-        if(binary_code == "/n") { 
-          counter = 0; 
+        bit_placement++; 
+
+        if(bit_placement > 12) { 
+            bit_placement = 0; 
         }
     }
-
+    for(int j = 0; j < 12; j++) { 
+        gamma_rate[j] = binary_counter[j];
+        printf("%llu \n", gamma_rate[j]); 
+    }
+    /*
+    gamma_rate = binary_counter[0]; 
+    printf("%llu", gamma_rate); */
     fclose(in_file);
     fclose(out_file);
 
