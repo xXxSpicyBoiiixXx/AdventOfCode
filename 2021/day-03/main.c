@@ -8,8 +8,8 @@ int main() {
     uint64_t gamma_rate[11]; // Most common bit
     uint64_t epislon_rate = 0; // Least common bit, the inverse of gamma_rate 
     uint64_t bit_placement = 0;
-    uint64_t binary_counter[11]; 
-    char binary_code; 
+    uint64_t binary_counter[11] = {0}; 
+    char binary_code = malloc(1000 * sizeof(char)); 
 
     //const unsigned MAX_LENGTH = 256; 
 
@@ -29,28 +29,39 @@ int main() {
     }
 
     while((binary_code = fgetc(in_file)) != EOF) {
-        //printf("%c", binary_code);
-
-        if(strcmp(&binary_code, "/n") != 0 && bit_placement < 12) { 
+        //printf("%c", binary_code) 
+        
+        //printf("%s", &binary_code); 
+        
+       // if((strcmp(&binary_code, "1") == 0 || strcmp(&binary_code, "0") == 0)  && bit_placement < 12) { 
             
-            if(strcmp(&binary_code, "1") == 0) { 
+            if(strcmp(binary_code, "1") == 0) { 
                 binary_counter[bit_placement] += 1;
             }
 
-            if(strcmp(&binary_code, "0") == 0) { 
-                binary_counter[bit_placement] -= 1; 
+            if(strcmp(binary_code, "0") == 0) { 
+                if(binary_counter[bit_placement] > 0) {
+                    binary_counter[bit_placement] -= 1; 
+                } 
+               
+                if(binary_counter[bit_placement] == 0) { 
+                    binary_counter[bit_placement] = 0; 
+                }
             } 
-        }
+        
 
+        //printf("%llu\n", binary_counter[bit_placement]);
+        
+        printf("%llu \n", binary_counter[bit_placement]);
         bit_placement++; 
 
-        if(bit_placement > 12) { 
+        if(bit_placement == 12) { 
             bit_placement = 0; 
         }
     }
-    for(int j = 0; j < 12; j++) { 
-        gamma_rate[j] = binary_counter[j];
-        printf("%llu \n", gamma_rate[j]); 
+    for(int j = 0; j < 11; j++) { 
+     //   gamma_rate[j] = binary_counter[j];
+     //   printf("%llu \n", gamma_rate[j]); 
     }
     /*
     gamma_rate = binary_counter[0]; 
