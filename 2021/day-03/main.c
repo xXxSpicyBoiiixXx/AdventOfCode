@@ -5,11 +5,11 @@
 int main() { 
 	
     uint64_t power_consumption = 0;
-    uint64_t gamma_rate[11]; // Most common bit
+    uint64_t gamma_rate[12]; // Most common bit
     uint64_t epislon_rate = 0; // Least common bit, the inverse of gamma_rate 
     uint64_t bit_placement = 0;
     uint64_t binary_counter[11] = {0}; 
-    char binary_code = malloc(1000 * sizeof(char)); 
+    int binary_code; 
 
     //const unsigned MAX_LENGTH = 256; 
 
@@ -34,21 +34,35 @@ int main() {
         //printf("%s", &binary_code); 
         
        // if((strcmp(&binary_code, "1") == 0 || strcmp(&binary_code, "0") == 0)  && bit_placement < 12) { 
-            
-            if(strcmp(binary_code, "1") == 0) { 
+/*            
+            if(strcmp(&binary_code, "1") == 0) { 
                 binary_counter[bit_placement] += 1;
             }
 
-            if(strcmp(binary_code, "0") == 0) { 
+            if(strcmp(&binary_code, "0") == 0) { 
                 if(binary_counter[bit_placement] > 0) {
                     binary_counter[bit_placement] -= 1; 
+                } else { 
+                    binary_counter[bit_placement] = 0;
                 } 
                
                 if(binary_counter[bit_placement] == 0) { 
                     binary_counter[bit_placement] = 0; 
                 }
             } 
-        
+*/
+
+            if(binary_code == 1) { 
+                binary_counter[bit_placement] += 1; 
+            }          
+
+            if(binary_code == 0) { 
+                if(binary_counter[bit_placement] > 0) { 
+                    binary_counter[bit_placement] -= 1;
+                } else { 
+                    binary_counter[bit_placement] = 0; 
+                }
+            }
 
         //printf("%llu\n", binary_counter[bit_placement]);
         
@@ -56,6 +70,7 @@ int main() {
         bit_placement++; 
 
         if(bit_placement == 12) { 
+            printf("\n"); 
             bit_placement = 0; 
         }
     }
