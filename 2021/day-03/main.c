@@ -8,8 +8,10 @@ int main() {
     uint64_t gamma_rate[12]; // Most common bit
     uint64_t epislon_rate = 0; // Least common bit, the inverse of gamma_rate 
     uint64_t bit_placement = 0;
-    uint64_t binary_counter[11] = {0}; 
+    uint64_t *binary_counter; 
     int binary_code; 
+    
+    binary_counter = (int *) calloc(11, sizeof(int)); 
 
     //const unsigned MAX_LENGTH = 256; 
 
@@ -29,17 +31,16 @@ int main() {
     }
 
     while((binary_code = fgetc(in_file)) != EOF) {
-        //printf("%c", binary_code) 
+//        printf("%c", binary_code); 
         
         //printf("%s", &binary_code); 
-        
-       // if((strcmp(&binary_code, "1") == 0 || strcmp(&binary_code, "0") == 0)  && bit_placement < 12) { 
-/*            
-            if(strcmp(&binary_code, "1") == 0) { 
+          if((binary_code == '1' || binary_code == '0')  && bit_placement < 12) { 
+            
+            if(binary_code == '1') { 
                 binary_counter[bit_placement] += 1;
             }
 
-            if(strcmp(&binary_code, "0") == 0) { 
+            if(binary_code == 0) { 
                 if(binary_counter[bit_placement] > 0) {
                     binary_counter[bit_placement] -= 1; 
                 } else { 
@@ -50,8 +51,7 @@ int main() {
                     binary_counter[bit_placement] = 0; 
                 }
             } 
-*/
-
+/*
             if(binary_code == 1) { 
                 binary_counter[bit_placement] += 1; 
             }          
@@ -67,6 +67,8 @@ int main() {
         //printf("%llu\n", binary_counter[bit_placement]);
         
         printf("%llu \n", binary_counter[bit_placement]);
+        
+        */
         bit_placement++; 
 
         if(bit_placement == 12) { 
@@ -75,14 +77,17 @@ int main() {
         }
     }
     for(int j = 0; j < 11; j++) { 
-     //   gamma_rate[j] = binary_counter[j];
-     //   printf("%llu \n", gamma_rate[j]); 
+        gamma_rate[j] = binary_counter[j];
+       printf("%llu", gamma_rate[j]); 
+    }
     }
     /*
     gamma_rate = binary_counter[0]; 
-    printf("%llu", gamma_rate); */
+    printf("%llu", gamma_rate); 
+    */ 
     fclose(in_file);
     fclose(out_file);
 
+    free(binary_counter);
 
 }
