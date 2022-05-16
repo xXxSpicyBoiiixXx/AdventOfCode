@@ -1,6 +1,7 @@
 #include <stdio.h> 
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 int main() { 
 	
@@ -9,14 +10,15 @@ int main() {
     uint64_t epsilon_rate[12]; // Least common bit, the inverse of gamma_rate 
     uint64_t bit_placement = 0;
     uint64_t *binary_counter_ones; 
-    uint64_t *binary_counter_zeros; 
+    uint64_t *binary_counter_zeros;
+
+    uint64_t gamma_rate_dec = 0; 
+    uint64_t epsilon_rate_dec = 0; 
+     
     int binary_code; 
     
     binary_counter_ones = (uint64_t *) calloc(11, sizeof(uint64_t)); 
     binary_counter_zeros = (uint64_t *) calloc(11, sizeof(uint64_t)); 
-    //const unsigned MAX_LENGTH = 256; 
-
-    //char buffer_inline[MAX_LENGTH]; 
 
     FILE *in_file = fopen("input.txt", "r"); 
     FILE *out_file = fopen("answer.txt", "w"); 
@@ -32,46 +34,14 @@ int main() {
     }
 
     while((binary_code = fgetc(in_file)) != EOF) {
-//        printf("%c", binary_code); 
-        
-        //printf("%s", &binary_code);  
-            
 
             if(binary_code == '1') { 
                 binary_counter_ones[bit_placement] += 1;
             }
 
             if(binary_code == '0') { 
-                /*if(binary_counter[bit_placement] > 0) {
-                   binary_counter[bit_placement] =  binary_counter[bit_placement] - 1; 
-                } else { 
-                    binary_counter[bit_placement] = 0;
-                } */ 
                 binary_counter_zeros[bit_placement] += 1; 
             }
-            /*    if(binary_counter[bit_placement] == 0) { 
-                    binary_counter[bit_placement] = 0; 
-                }*/
-//          printf("%llu \n", binary_counter[bit_placement]);    
-/*
-            if(binary_code == 1) { 
-                binary_counter[bit_placement] += 1; 
-            }          
-
-            if(binary_code == 0) { 
-                if(binary_counter[bit_placement] > 0) { 
-                    binary_counter[bit_placement] -= 1;
-                } else { 
-                    binary_counter[bit_placement] = 0; 
-                }
-            }
-
-        //printf("%llu\n", binary_counter[bit_placement]);
-        
-        printf("%llu \n", binary_counter[bit_placement]);
-        
-        */
-          
         bit_placement++; 
 
         if(bit_placement == 13) {
@@ -79,20 +49,33 @@ int main() {
         }
     }
    
-    /*
-    gamma_rate = binary_counter[0]; 
-    printf("%llu", gamma_rate); 
-    */ 
-    for(int j = 0; j < 11; j++) { 
+    for(int j = 0; j < 13; j++) { 
        if(binary_counter_ones[j] > binary_counter_zeros[j]) {
        gamma_rate[j] = 1;
-       epsilon_rate[j] = 0; } else { 
+       epsilon_rate[j] = 0; } 
+       
+       else { 
        gamma_rate[j] = 0;
        epsilon_rate[j] = 1;  
        }
-       printf("%llu", gamma_rate[j]); 
-      // printf("EPSILON BINARY RATE: %llu", epsilon_rate[j]); 
+
+       if(gamma_rate[j] == 1) { 
+            gamma_rate_dec = gamma_rate_dec + pow(2, j); 
+       }
+
+       if(epsilon_rate[j] == 1) { 
+            epsilon_rate_dec  = epsilon_rate_dec + pow(2, j); 
+       }
     }
+
+    power_consumption = gamma_rate_dec * epsilon_rate_dec; 
+
+    printf("GAMMA RATE: %llu", gamma_rate_dec); 
+    printf("\n"); 
+    printf("EPSILON RATE: %llu", epsilon_rate_dec);
+    printf("\n");
+    printf("POWER CONSUMPTION: %llu", power_consumption); 
+    
     fclose(in_file);
     fclose(out_file);
 
