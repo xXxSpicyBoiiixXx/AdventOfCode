@@ -6,8 +6,8 @@
 int main() { 
 	
     uint64_t power_consumption = 0;
-    uint64_t gamma_rate[13]; // Most common bit
-    uint64_t epsilon_rate[13]; // Least common bit, the inverse of gamma_rate 
+    uint64_t gamma_rate[11]; // Most common bit
+    uint64_t epsilon_rate[11]; // Least common bit, the inverse of gamma_rate 
     uint64_t bit_placement = 0;
     uint64_t *binary_counter_ones; 
     uint64_t *binary_counter_zeros;
@@ -49,9 +49,9 @@ int main() {
         }
     }
 
-    bit_placement = 12; 
+    bit_placement = 11; 
    
-    for(int j = 0; j < 13; j++) { 
+    for(int j = 0; j < 12; j++) { 
        if(binary_counter_ones[j] > binary_counter_zeros[j]) {
        gamma_rate[j] = 1;
        epsilon_rate[j] = 0; } 
@@ -76,7 +76,7 @@ int main() {
     
     printf("GAMMA BINARY RATE: ");    
     
-    for(int j = 0; j < 13; j++) { 
+    for(int j = 0; j < 12; j++) { 
         printf("%llu", gamma_rate[j]); 
     }
    
@@ -84,7 +84,7 @@ int main() {
    
     printf("EPSILON BINARY RATE: "); 
 
-    for(int j = 0; j < 13; j++) { 
+    for(int j = 0; j < 12; j++) { 
         printf("%llu", epsilon_rate[j]); 
     }
     printf("\nGAMMA RATE: %llu", gamma_rate_dec); 
