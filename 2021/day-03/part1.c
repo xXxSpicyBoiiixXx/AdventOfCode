@@ -21,7 +21,7 @@ int main() {
     binary_counter_zeros = (uint64_t *) calloc(11, sizeof(uint64_t)); 
 
     FILE *in_file = fopen("input.txt", "r"); 
-    FILE *out_file = fopen("answer.txt", "w"); 
+    FILE *out_file = fopen("answer-part1.txt", "w"); 
 
     if(in_file == NULL) {
         printf("ERROR! COULD NOT OPEN INPUT FILE!\n"); 
@@ -75,24 +75,37 @@ int main() {
     power_consumption = gamma_rate_dec * epsilon_rate_dec; 
     
     printf("GAMMA BINARY RATE: ");    
-    
+    fprintf(out_file, "GAMMA BINARY RATE: "); 
+
     for(int j = 0; j < 12; j++) { 
         printf("%llu", gamma_rate[j]); 
+        fprintf(out_file, "%llu", gamma_rate[j]);
     }
    
     printf("\n"); 
+    fprintf(out_file, "\n"); 
    
     printf("EPSILON BINARY RATE: "); 
+    fprintf(out_file, "EPSILON BINARY RATE: ");
 
     for(int j = 0; j < 12; j++) { 
         printf("%llu", epsilon_rate[j]); 
+        fprintf(out_file, "%llu", epsilon_rate[j]);
     }
+
     printf("\nGAMMA RATE: %llu", gamma_rate_dec); 
     printf("\n"); 
     printf("EPSILON RATE: %llu", epsilon_rate_dec);
     printf("\n");
     printf("POWER CONSUMPTION: %llu", power_consumption); 
     printf("\n");
+
+    fprintf(out_file, "\nGAMMA RATE: %llu", gamma_rate_dec); 
+    fprintf(out_file, "\n"); 
+    fprintf(out_file, "EPSILON RATE: %llu", epsilon_rate_dec);
+    fprintf(out_file, "\n"); 
+    fprintf(out_file, "POWER CONSUMPTION: %llu", power_consumption); 
+    fprintf(out_file, "\n"); 
 
     fclose(in_file);
     fclose(out_file);

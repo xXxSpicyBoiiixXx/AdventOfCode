@@ -4,24 +4,8 @@
 #include <math.h>
 
 int main() { 
-	
-    uint64_t power_consumption = 0;
-    uint64_t gamma_rate[13]; // Most common bit
-    uint64_t epsilon_rate[13]; // Least common bit, the inverse of gamma_rate 
-    uint64_t bit_placement = 0;
-    uint64_t *binary_counter_ones; 
-    uint64_t *binary_counter_zeros;
-
-    uint64_t gamma_rate_dec = 0; 
-    uint64_t epsilon_rate_dec = 0; 
-     
-    int binary_code; 
-    
-    binary_counter_ones = (uint64_t *) calloc(11, sizeof(uint64_t)); 
-    binary_counter_zeros = (uint64_t *) calloc(11, sizeof(uint64_t)); 
-
     FILE *in_file = fopen("input.txt", "r"); 
-    FILE *out_file = fopen("answer.txt", "w"); 
+    FILE *out_file = fopen("answer-part2.txt", "w"); 
 
     if(in_file == NULL) {
         printf("ERROR! COULD NOT OPEN INPUT FILE!\n"); 
@@ -33,71 +17,7 @@ int main() {
         exit(1); 
     }
 
-    while((binary_code = fgetc(in_file)) != EOF) {
-
-            if(binary_code == '1') { 
-                binary_counter_ones[bit_placement] += 1;
-            }
-
-            if(binary_code == '0') { 
-                binary_counter_zeros[bit_placement] += 1; 
-            }
-        bit_placement++; 
-
-        if(bit_placement == 13) {
-            bit_placement = 0;   
-        }
-    }
-
-    bit_placement = 12; 
-   
-    for(int j = 0; j < 13; j++) { 
-       if(binary_counter_ones[j] > binary_counter_zeros[j]) {
-       gamma_rate[j] = 1;
-       epsilon_rate[j] = 0; } 
-       
-       else { 
-       gamma_rate[j] = 0;
-       epsilon_rate[j] = 1;  
-       }
-       
-       if(gamma_rate[j] == 1) { 
-            gamma_rate_dec = gamma_rate_dec + pow(2, bit_placement); 
-       }
-
-       if(epsilon_rate[j] == 1) { 
-            epsilon_rate_dec  = epsilon_rate_dec + pow(2, bit_placement); 
-       }
-
-       bit_placement--; 
-    }
-
-    power_consumption = gamma_rate_dec * epsilon_rate_dec; 
-    
-    printf("GAMMA BINARY RATE: ");    
-    
-    for(int j = 0; j < 13; j++) { 
-        printf("%llu", gamma_rate[j]); 
-    }
-   
-    printf("\n"); 
-   
-    printf("EPSILON BINARY RATE: "); 
-
-    for(int j = 0; j < 13; j++) { 
-        printf("%llu", epsilon_rate[j]); 
-    }
-    printf("\nGAMMA RATE: %llu", gamma_rate_dec); 
-    printf("\n"); 
-    printf("EPSILON RATE: %llu", epsilon_rate_dec);
-    printf("\n");
-    printf("POWER CONSUMPTION: %llu", power_consumption); 
-    printf("\n");
-
     fclose(in_file);
     fclose(out_file);
-
-    free(binary_counter_ones);
-    free(binary_counter_zeros);
 
 }
