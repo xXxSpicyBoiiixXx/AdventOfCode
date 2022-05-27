@@ -4,6 +4,13 @@
 #include <math.h>
 
 int main() { 
+    
+    uint64_t life_support = 0; 
+    uint64_t O2_rating[11]; // Oxygen rating
+    uint64_t CO2_rating[11]; // Carbon Dioxide rating
+
+    
+
     FILE *in_file = fopen("input.txt", "r"); 
     FILE *out_file = fopen("answer-part2.txt", "w"); 
 

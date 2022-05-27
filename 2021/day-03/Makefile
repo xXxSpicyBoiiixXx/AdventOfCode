@@ -13,5 +13,5 @@ part2:
 	./part2.o
 
 clean:
-	$(RM) -rf answer.txt *.o *.~ *.dSYM 
+	$(RM) -rf answer-part1.txt answer-part2.txt *.o *.~ *.dSYM 
 
