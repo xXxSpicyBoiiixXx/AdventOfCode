@@ -8,6 +8,12 @@ int main() {
     uint64_t life_support = 0; 
     uint64_t O2_rating[11]; // Oxygen rating
     uint64_t CO2_rating[11]; // Carbon Dioxide rating
+    
+    uint64_t bit_placement = 0; 
+
+    uint64_t *binary_counter_holder; 
+
+    binary_counter holder = (uint64_t *) calloc(, sizeof(uint64_t)); 
 
     
 
