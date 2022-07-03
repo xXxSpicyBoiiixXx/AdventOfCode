@@ -28,13 +28,14 @@ int main() {
         exit(1); 
     }
 
+    for(int i = 0, i < 13, i++) { 
     while((binary_code = fgetc(in_file)) != EOF) { 
         
-        if(binary_code == '1' && bit_placement == 0) { 
+        if(binary_code == '1' && bit_placement == i) { 
            one_counter++; 
         }
 
-        if(binary_code == '0' && bit_placement == 0) { 
+        if(binary_code == '0' && bit_placement == i) { 
            zero_counter++;  
         }
         bit_placement++; 
@@ -43,7 +44,18 @@ int main() {
             bit_placement = 0;
         }
     }
+// Comparison for one and zeros and then conditional to increase bit placement"? 
+    rewind(in_file);
+    if(one_counter >= zero_counter) { 
+        // first number has to be one 
+    } else { 
+        // first number has to be zero
+    }
 
+    rewind(in_file);
+    one_counter = 0;
+    zero_counter = 0;
+}
     printf("The number of ones in placement one: %llu", one_counter);      
     printf("\n");
     printf("The number of zeros in placement one: %llu", zero_counter);
@@ -51,7 +63,8 @@ int main() {
 
     one_counter = 0; 
     zero_counter = 0; 
-    rewind(FILE *in_file);
+
+    rewind(in_file);
 
     while((binary_code = fgetc(in_file)) != EOF) { 
         
