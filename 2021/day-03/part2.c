@@ -35,12 +35,12 @@ int main() {
         exit(1); 
     }
 
+    uint64_t significant_bit = NULL; 
+
     for(int i = 0; i < 13; i++) { 
-
-        bit_placement = 0; 
-
+       bit_placement = 0;    
     while((binary_code = fgetc(in_file)) != EOF) { 
-        
+       
         if(binary_code == '1' && bit_placement == i) { 
            one_counter++; 
         }
@@ -48,6 +48,7 @@ int main() {
         if(binary_code == '0' && bit_placement == i) { 
            zero_counter++;  
         }
+    
         bit_placement++; 
 
         if(bit_placement == 13) { 
@@ -55,12 +56,14 @@ int main() {
         }
     }
 
-    bit_placement = i; 
+    bit_placement = i;
 // Comparison for one and zeros and then conditional to increase bit placement"? 
     if(one_counter >= zero_counter) { 
+        significant_bit += '1'; 
         binary_counter_O2[bit_placement] = 1; 
         binary_counter_CO2[bit_placement] = 0;  
     } else { 
+        significant_bit += '0'; 
         binary_counter_O2[bit_placement] = 0; 
         binary_counter_CO2[bit_placement] = 1; 
     }
@@ -85,6 +88,11 @@ for(int j = 0; j < 12; j++) {
     printf("%llu", binary_counter_CO2[j]);
 }
 
+printf("\n");
+
+for(int j = 0; j < 12; j++) { 
+    printf("%llu", significant_bit); 
+}
     fclose(in_file);
     fclose(out_file);
 
