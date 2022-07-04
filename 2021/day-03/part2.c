@@ -14,7 +14,14 @@ int main() {
     uint64_t one_counter = 0; 
     uint64_t zero_counter = 0;
     
+    uint64_t *binary_counter_O2; 
+    uint64_t *binary_counter_CO2; 
+    
+    binary_counter_O2 = (uint64_t *) calloc(11, sizeof(uint64_t));
+    binary_counter_CO2 = (uint64_t *) calloc(11, sizeof(uint64_t)); 
+
     int binary_code;
+
     FILE *in_file = fopen("input.txt", "r"); 
     FILE *out_file = fopen("answer-part2.txt", "w"); 
 
@@ -28,7 +35,10 @@ int main() {
         exit(1); 
     }
 
-    for(int i = 0, i < 13, i++) { 
+    for(int i = 0; i < 13; i++) { 
+
+        bit_placement = 0; 
+
     while((binary_code = fgetc(in_file)) != EOF) { 
         
         if(binary_code == '1' && bit_placement == i) { 
@@ -44,49 +54,36 @@ int main() {
             bit_placement = 0;
         }
     }
+
+    bit_placement = i; 
 // Comparison for one and zeros and then conditional to increase bit placement"? 
-    rewind(in_file);
     if(one_counter >= zero_counter) { 
-        // first number has to be one 
+        binary_counter_O2[bit_placement] = 1; 
+        binary_counter_CO2[bit_placement] = 0;  
     } else { 
-        // first number has to be zero
+        binary_counter_O2[bit_placement] = 0; 
+        binary_counter_CO2[bit_placement] = 1; 
     }
 
     rewind(in_file);
     one_counter = 0;
     zero_counter = 0;
 }
-    printf("The number of ones in placement one: %llu", one_counter);      
+/*    printf("The number of ones in placement one: %llu", one_counter);      
     printf("\n");
     printf("The number of zeros in placement one: %llu", zero_counter);
     printf("\n");
+  */
 
-    one_counter = 0; 
-    zero_counter = 0; 
+for(int j = 0; j < 12; j++) { 
+    printf("%llu", binary_counter_O2[j]); 
+}
 
-    rewind(in_file);
+printf("\n");
 
-    while((binary_code = fgetc(in_file)) != EOF) { 
-        
-        if(binary_code == '1' && bit_placement == 1) { 
-           one_counter++; 
-        }
-
-        if(binary_code == '0' && bit_placement == 1) { 
-           zero_counter++;  
-        }
-        bit_placement++; 
-
-        if(bit_placement == 13) { 
-            bit_placement = 0;
-        }
-    }
-
-    printf("The number of ones in placement two: %llu", one_counter);      
-    printf("\n");
-    printf("The number of zeros in placement twp: %llu", zero_counter);
-    printf("\n");
-
+for(int j = 0; j < 12; j++) {
+    printf("%llu", binary_counter_CO2[j]);
+}
 
     fclose(in_file);
     fclose(out_file);
