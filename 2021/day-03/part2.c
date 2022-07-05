@@ -21,6 +21,8 @@ int main() {
     binary_counter_CO2 = (uint64_t *) calloc(11, sizeof(uint64_t)); 
 
     int binary_code;
+    int comparison; 
+    int bit_check;
 
     FILE *in_file = fopen("input.txt", "r"); 
     FILE *out_file = fopen("answer-part2.txt", "w"); 
@@ -35,12 +37,33 @@ int main() {
         exit(1); 
     }
 
-    uint64_t significant_bit = NULL; 
-
     for(int i = 0; i < 13; i++) { 
-       bit_placement = 0;    
+       bit_placement = 0; 
+       bit_check = 0; 
+       comparison = 0;     
     while((binary_code = fgetc(in_file)) != EOF) { 
-       
+        
+        if(i != 0) { 
+            
+            for(comparison = 0; comparison < i; comparison++) { 
+                if(binary_code == binary_counter_O2[comparison]) { 
+                  bit_check_O2++;   
+                } 
+                if(binary_code == binary_counter_CO2[comparison]) { 
+                  bit_check_CO2++;   
+                }
+                else { 
+                    break; 
+                }
+            }
+        }
+
+           if(bit_check != comparison) { 
+                break; 
+           } 
+
+         else { 
+
         if(binary_code == '1' && bit_placement == i) { 
            one_counter++; 
         }
@@ -55,15 +78,15 @@ int main() {
             bit_placement = 0;
         }
     }
+    
+    }
 
     bit_placement = i;
 // Comparison for one and zeros and then conditional to increase bit placement"? 
     if(one_counter >= zero_counter) { 
-        significant_bit += '1'; 
         binary_counter_O2[bit_placement] = 1; 
         binary_counter_CO2[bit_placement] = 0;  
     } else { 
-        significant_bit += '0'; 
         binary_counter_O2[bit_placement] = 0; 
         binary_counter_CO2[bit_placement] = 1; 
     }
@@ -90,9 +113,6 @@ for(int j = 0; j < 12; j++) {
 
 printf("\n");
 
-for(int j = 0; j < 12; j++) { 
-    printf("%llu", significant_bit); 
-}
     fclose(in_file);
     fclose(out_file);
 
