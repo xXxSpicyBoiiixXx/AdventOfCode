@@ -3,7 +3,15 @@
 #include <string.h>
 #include <math.h>
 
+const char EOL = '\n';
+
+#define MWIDTH = 13;
+#define MHEIGHT = 1000; 
+
 int main() { 
+    
+    uint64_t width, height, ii, jj;
+    float array[MWIDTH][MHEIGHT];
     
     uint64_t life_support = 0; 
     uint64_t O2_rating = 0; // Oxygen rating
@@ -38,6 +46,8 @@ int main() {
         exit(1); 
     }
 
+
+/*
     for(int i = 0; i < 13; i++) { 
        bit_placement = 0; 
        bit_check_O2 = 0; 
@@ -56,13 +66,15 @@ int main() {
                 }
                 else { 
                     // skip the line here
-                    fgets(in_file); 
+                   //(fgetc(in_file) == "\n");  
+                   break;
                 }
             }
 
             if((bit_check_O2 + bit_check_CO2) != comparison) { 
                 // skip the line here
-                fgets(in_file); 
+                //fgets(in_file); 
+                break;
             }
         } 
 
@@ -97,11 +109,6 @@ int main() {
     one_counter = 0;
     zero_counter = 0;
 }
-/*    printf("The number of ones in placement one: %llu", one_counter);      
-    printf("\n");
-    printf("The number of zeros in placement one: %llu", zero_counter);
-    printf("\n");
-*/
 for(int j = 0; j < 12; j++) { 
     printf("%llu", binary_counter_O2[j]); 
 }
@@ -134,7 +141,7 @@ life_support = O2_rating * CO2_rating;
 
 printf("LIFE SUPPORT: %llu", life_support); 
 printf("\n");
-
+*/
     fclose(in_file);
     fclose(out_file);
 
