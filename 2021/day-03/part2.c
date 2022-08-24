@@ -5,14 +5,17 @@
 
 const char EOL = '\n';
 
-#define MWIDTH = 13;
-#define MHEIGHT = 1000; 
+#define MAX_COLUMN = 13; 
+#define MAX_ROWS = 1000; 
+#define MAX_LINE_LENGTH = 13; 
 
 int main() { 
     
+    // Matrix implementations    
     uint64_t width, height, ii, jj;
-    float array[MWIDTH][MHEIGHT];
-    
+    float array[MAX_ROWS][MAX_COLUMN];
+    uint64_t row, column; 
+
     uint64_t life_support = 0; 
     uint64_t O2_rating = 0; // Oxygen rating
     uint64_t CO2_rating = 0; // Carbon Dioxide rating
@@ -46,7 +49,29 @@ int main() {
         exit(1); 
     }
 
+    row = 0; 
+    column = 0; 
+    ii = 0; 
+    jj = 0; 
+   // char lineBuf[MAX_LINE_LENGTH]; 
+  /* for(int i = 0; i < 13; i++) {                
+    
+    bit_placement = 0; 
+    bit_check_O2 = 0; 
+    bit_check_CO2 = 0; 
+    comparison = 0;    
+   */ 
+    while((binary_code = fgetc(in_file)) != EOF) {    
+       array[row][column] = binary_code; 
+       column++; 
+       if(column == 13) {
+        row++; 
+        column = 0;
+       } 
 
+    }
+   }
+// Iterative Version
 /*
     for(int i = 0; i < 13; i++) { 
        bit_placement = 0; 
