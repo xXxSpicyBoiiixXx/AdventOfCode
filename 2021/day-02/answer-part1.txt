@@ -1,4 +1,0 @@
-Below is the position of the horizontal and depth of the submarine
-Horizontal: 1832
-Depth: 1172
-Multiplier: 2147104

@@ -3,6 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include <stdint.h> 
+#include <inttypes.h>
 
 int main() { 
 	
@@ -80,7 +81,7 @@ int main() {
 
     for(int j = 0; j < 12; j++) { 
         printf("%llu", gamma_rate[j]); 
-        fprintf(out_file, "%llu", gamma_rate[j]);
+        fprintf(out_file, "%lu", gamma_rate[j]);
     }
    
     printf("\n"); 
@@ -90,22 +91,22 @@ int main() {
     fprintf(out_file, "EPSILON BINARY RATE: ");
 
     for(int j = 0; j < 12; j++) { 
-        printf("%llu", epsilon_rate[j]); 
-        fprintf(out_file, "%llu", epsilon_rate[j]);
+        printf("%lu", epsilon_rate[j]); 
+        fprintf(out_file, "%lu", epsilon_rate[j]);
     }
 
-    printf("\nGAMMA RATE: %llu", gamma_rate_dec); 
+    printf("\nGAMMA RATE: %lu", gamma_rate_dec); 
     printf("\n"); 
-    printf("EPSILON RATE: %llu", epsilon_rate_dec);
+    printf("EPSILON RATE: %lu", epsilon_rate_dec);
     printf("\n");
-    printf("POWER CONSUMPTION: %llu", power_consumption); 
+    printf("POWER CONSUMPTION: %lu", power_consumption); 
     printf("\n");
 
-    fprintf(out_file, "\nGAMMA RATE: %llu", gamma_rate_dec); 
+    fprintf(out_file, "\nGAMMA RATE: %lu", gamma_rate_dec); 
     fprintf(out_file, "\n"); 
-    fprintf(out_file, "EPSILON RATE: %llu", epsilon_rate_dec);
+    fprintf(out_file, "EPSILON RATE: %lu", epsilon_rate_dec);
     fprintf(out_file, "\n"); 
-    fprintf(out_file, "POWER CONSUMPTION: %llu", power_consumption); 
+    fprintf(out_file, "POWER CONSUMPTION: %lu", power_consumption); 
     fprintf(out_file, "\n"); 
 
     fclose(in_file);
