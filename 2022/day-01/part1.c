@@ -14,9 +14,9 @@ int main() {
     char buffer_inline[MAX_LENGTH]; 
     int c[1000];
 
-   // uint64_t counter = 0;     
-   // uint64_t max_weight = 0;
-   // uint64_t temp_weight = 0;
+    uint64_t counter = 0;     
+    uint64_t max_weight = 0;
+    uint64_t temp_weight = 0;
     uint64_t file_values = 0; 
     uint64_t data[2000];
 
