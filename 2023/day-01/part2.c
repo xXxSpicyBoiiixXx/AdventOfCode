@@ -1,6 +1,6 @@
 /*
  * Name: Md Ali 
- * Description: Advent of Code day 1 part 1
+ * Description: Advent of Code day 1 part 2
  * Date: 12/15/2023
  */
 
