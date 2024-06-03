@@ -59,7 +59,7 @@ int main() {
                 printf("Error has occured for comparisons between l, w, h at line %s\n", buffer);
             }
 
-            int square_feet_total = a + b + c + shortest_side; 
+            int square_feet_total = 2 * (a + b + c) + shortest_side; 
             total_paper = square_feet_total + total_paper;
         } 
 
