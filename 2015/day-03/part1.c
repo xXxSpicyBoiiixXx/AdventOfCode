@@ -71,7 +71,6 @@ bool isUnique(DynamicArray *arr, Coordinate element) {
     FILE *in_file = fopen("input.txt", "r"); 
     FILE *out_file = fopen("answer-part1.txt", "w"); 
 
-// TODO: Error is thorwn for some reson during executeable. Come back to trouble shoot.
     // error checking for files
     if(in_file == NULL || out_file == NULL) { 
         printf("Error! Count not open file!\n"); 
@@ -80,7 +79,8 @@ bool isUnique(DynamicArray *arr, Coordinate element) {
     
     point.x = x_pos; 
     point.y = y_pos; 
-
+//    printf("x_pos: %u", point.x);
+//    printf("y_post: %u", point.y);
     insertArray(&coordinates, point);
 
 // TODO: fix logic with new array logic.
@@ -88,19 +88,31 @@ bool isUnique(DynamicArray *arr, Coordinate element) {
         char_input = fgetc(in_file); 
         if(char_input == '^') { 
             y_pos++;
-
+            point.y = y_pos; 
+            insertArray(&coordinates, point);
         } else if(char_input == '>') { 
             x_pos++;
+            point.x = x_pos; 
+            insertArray(&coordinates, point);
         } else if(char_input == '<') {
             x_pos--;
+            point.x = x_pos;
+            insertArray(&coordinates, point);
         } else if(char_input == 'v') { 
             y_pos--;
+            point.y = y_pos;
+            insertArray(&coordinates, point);
         } else {
             printf("Error reading file input");
             exit(-1);
         }
+
+        if(isUnique(&coordinates, point) == false) {
+            uniqueHouses++;
+        } 
     } while(char_input != EOF);
     // closing files
+    printf("Unique Houses: %i", uniqueHouses); 
     fclose(in_file);
     fclose(out_file); 
 }
