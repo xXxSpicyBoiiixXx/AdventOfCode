@@ -1,13 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 int main() { 
 
 // Coordinate object    
 typedef struct {
-    unsigned int x;
-    unsigned int y;
+    int x;
+    int y;
 } Coordinate; 
 
 // Coordinate dynamic structure
@@ -41,30 +40,26 @@ void freeArray(DynamicArray *arr) {
     arr->capacity = 0;
 }   
 
-bool isUnique(DynamicArray *arr, Coordinate element) { 
+int isUnique(DynamicArray *arr, Coordinate element) { 
     for(size_t i = 0; i < arr->size; i++) {
         if(arr->data[i].x == element.x && arr->data[i].y == element.y) { 
-            return true; // not unique 
+            return 0; // not unique 
         }
     }
 
-    return false; // unique 
+    return 1; // unique 
 }
 
-    int north;
-    int east;
-    int south;
-    int west;
-    int uniqueHouses = 0;
+    int uniqueHouses = 1;
     
-    unsigned int x_pos = 0;
-    unsigned int y_pos = 0;
+    int x_pos = 0;
+    int y_pos = 0;
     
     char char_input; 
 
     DynamicArray coordinates; 
     initArray(&coordinates, 2); 
-    Coordinate point; 
+    Coordinate point = {0, 0}; 
 //    bool counter = 1; // starts at 1 to set it to true
     
     // declaring file input/output
@@ -77,8 +72,8 @@ bool isUnique(DynamicArray *arr, Coordinate element) {
         exit(-1);             
     }
     
-    point.x = x_pos; 
-    point.y = y_pos; 
+//    point.x = x_pos; 
+//    point.y = y_pos; 
 //    printf("x_pos: %u", point.x);
 //    printf("y_post: %u", point.y);
     insertArray(&coordinates, point);
@@ -86,9 +81,11 @@ bool isUnique(DynamicArray *arr, Coordinate element) {
 // TODO: fix logic with new array logic.
     do { 
         char_input = fgetc(in_file); 
+//        printf("Current character: %c\n", char_input);
         if(char_input == '^') { 
             y_pos++;
             point.y = y_pos; 
+//            printf("x_pos: %i, y_pos: %i\n", point.x, point.y);
             insertArray(&coordinates, point);
         } else if(char_input == '>') { 
             x_pos++;
@@ -103,16 +100,18 @@ bool isUnique(DynamicArray *arr, Coordinate element) {
             point.y = y_pos;
             insertArray(&coordinates, point);
         } else {
-            printf("Error reading file input");
-            exit(-1);
+            printf("End of File has been reached.");
         }
-
-        if(isUnique(&coordinates, point) == false) {
+       
+        if(isUnique(&coordinates, point)) {
+            insertArray(&coordinates, point);
             uniqueHouses++;
         } 
     } while(char_input != EOF);
     // closing files
     printf("Unique Houses: %i", uniqueHouses); 
+
+    freeArray(&coordinates);     
     fclose(in_file);
     fclose(out_file); 
 }
