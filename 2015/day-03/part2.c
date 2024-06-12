@@ -3,19 +3,66 @@
 
 int main() { 
 
-    int length = 0; 
-    int width = 0; 
-    int height = 0;
-    int volume = 0;
+    // Coordinate object    
+    typedef struct {
+        int x;
+        int y;
+    } Coordinate; 
 
-    int shortest_side = 0;
-    int total_paper = 0;
+    // Coordinate dynamic structure
+    typedef struct { 
+        Coordinate *data; 
+        size_t size;
+        size_t capacity; 
+    } DynamicArray;
 
-    int a;
-    int b;
-    int c;
+    // Initializing array
+    void initArray(DynamicArray *arr, size_t initialCapacity) { 
+        arr->data = (Coordinate *)malloc(initialCapacity * sizeof(Coordinate));
+        arr->size = 0;
+        arr->capacity = initialCapacity; 
+    }
 
-    char buffer[10000];
+    // Inserting objects 
+    void insertArray(DynamicArray *arr, Coordinate element) { 
+        if(arr->size == arr->capacity) {
+            arr->capacity *= 2;
+            arr->data = (Coordinate *)realloc(arr->data, arr->capacity * sizeof(Coordinate));
+        }
+        arr->data[arr->size++] = element; 
+    }
+
+    // Memory management
+    void freeArray(DynamicArray *arr) { 
+        free(arr->data);
+        arr->data = NULL;
+        arr->size = 0;
+        arr->capacity = 0;
+    }   
+
+    int isUnique(DynamicArray *arr, Coordinate element) { 
+        for(size_t i = 0; i < arr->size; i++) {
+            if(arr->data[i].x == element.x && arr->data[i].y == element.y) { 
+                return 0; // not unique 
+            }
+        }
+
+        return 1; // unique 
+    }
+
+    int uniqueHouses = 1;
+
+    int x_pos = 0;
+    int y_pos = 0;
+    
+    int turn = 1; 
+
+    char char_input; 
+
+    DynamicArray coordinates; 
+    initArray(&coordinates, 2); 
+    Coordinate point_santa = {0, 0}; 
+    Coordinate point_robo = {0, 0};
 
     // declaring file input/output
     FILE *in_file = fopen("input.txt", "r"); 
@@ -27,39 +74,61 @@ int main() {
         exit(-1);             
     }
 
-    while(fgets(buffer, sizeof(buffer), in_file) != NULL) {
-        if(sscanf(buffer, "%dx%dx%d", &length, &width, &height) == 3) { 
+    insertArray(&coordinates, point_santa);
 
-            // Test Printing
-            //printf("Read dimensions: %d, %d, %d\n", length, width, height); 
-            volume = length * width * height;
-
-            a = length * width;
-            b = width * height; 
-            c = height * length; 
-
-            if(a <= b && a <= c) { 
-             shortest_side = length + length + width + width;   
-            } else if(b <= a && b <= c) { 
-             shortest_side = width + width + height + height;
-            } else {
-             shortest_side = height + height + length + length;
-            }
+    do { 
+        char_input = fgetc(in_file); 
+        if(turn%2 == 1) { 
+            turn++;
+        if(char_input == '^') { 
+            y_pos++;
+            point_santa.y = y_pos; 
+        } else if(char_input == '>') { 
+            x_pos++;
+            point_santa.x = x_pos; 
+        } else if(char_input == '<') {
+            x_pos--;
+            point_santa.x = x_pos;
+        } else if(char_input == 'v') { 
+            y_pos--;
+            point_santa.y = y_pos;
+        } else {
             
-        }else {
-                printf("Error has occured for comparisons between l, w, h at line %s\n", buffer);
-            }
+        } 
+        } else {
+            turn++;
+           if(char_input == '^') { 
+            y_pos++;
+            point_robo.y = y_pos; 
+        } else if(char_input == '>') { 
+            x_pos++;
+            point_robo.x = x_pos; 
+        } else if(char_input == '<') {
+            x_pos--;
+            point_robo.x = x_pos;
+        } else if(char_input == 'v') { 
+            y_pos--;
+            point_robo.y = y_pos;
+        } else { 
 
-        //int square_feet_total = 2 * (a + b + c) + shortest_side; 
-        //total_paper = square_feet_total + total_paper;
-        total_paper = total_paper + volume + shortest_side;
-        //printf("%d, %d, %d, shortest perm: %i, volume: %i, total paper: %i\n", length, width, height, shortest_side, volume, total_paper);
-    } 
+        }
+        }
 
-    printf("Total paper needed is %i square feet", total_paper); 
-    fprintf(out_file, "Total paper needed is %i square feet", total_paper);
+        if(isUnique(&coordinates, point_santa)) {
+            insertArray(&coordinates, point_santa);
+            uniqueHouses++;
+        }
+        
+        if(isUnique(&coordinates, point_robo)) { 
+            insertArray(&coordinates, point_robo);
+            uniqueHouses++;
+        }
+    } while(char_input != EOF);
 
     // closing files
+    printf("Unique Houses: %i\n", uniqueHouses); 
+
+    freeArray(&coordinates);     
     fclose(in_file);
     fclose(out_file); 
 }
