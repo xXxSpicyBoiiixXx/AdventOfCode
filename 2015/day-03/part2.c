@@ -52,10 +52,12 @@ int main() {
 
     int uniqueHouses = 1;
 
-    int x_pos = 0;
-    int y_pos = 0;
-    
     int turn = 1; 
+    
+    int santa_pos_x = 0;
+    int santa_pos_y = 0;
+    int robo_pos_x = 0;
+    int robo_pos_y = 0;
 
     char char_input; 
 
@@ -81,34 +83,34 @@ int main() {
         if(turn%2 == 1) { 
             turn++;
         if(char_input == '^') { 
-            y_pos++;
-            point_santa.y = y_pos; 
+            santa_pos_y++;
+            point_santa.y = santa_pos_y; 
         } else if(char_input == '>') { 
-            x_pos++;
-            point_santa.x = x_pos; 
+            santa_pos_x++;
+            point_santa.x = santa_pos_x; 
         } else if(char_input == '<') {
-            x_pos--;
-            point_santa.x = x_pos;
+            santa_pos_x--;
+            point_santa.x = santa_pos_x;
         } else if(char_input == 'v') { 
-            y_pos--;
-            point_santa.y = y_pos;
+            santa_pos_y--;
+            point_santa.y = santa_pos_y;
         } else {
             
         } 
         } else {
             turn++;
            if(char_input == '^') { 
-            y_pos++;
-            point_robo.y = y_pos; 
+            robo_pos_y++;
+            point_robo.y = robo_pos_y; 
         } else if(char_input == '>') { 
-            x_pos++;
-            point_robo.x = x_pos; 
+            robo_pos_x++;
+            point_robo.x = robo_pos_x; 
         } else if(char_input == '<') {
-            x_pos--;
-            point_robo.x = x_pos;
+            robo_pos_x--;
+            point_robo.x = robo_pos_x;
         } else if(char_input == 'v') { 
-            y_pos--;
-            point_robo.y = y_pos;
+            robo_pos_y--;
+            point_robo.y = robo_pos_y;
         } else { 
 
         }
