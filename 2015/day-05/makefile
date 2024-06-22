@@ -3,8 +3,8 @@ CC = gcc
 CFLAGS = -g -Wall -lm -O3 
 
 all: part1.c part2.c  
-		$(CC) $(CFLAGS) part1.c -o part1.o -lssl -lcrypto 
-	    $(CC) $(CFLAGS) part2.c -o part2.o -lssl -lcrypto 
+		$(CC) $(CFLAGS) part1.c -o part1.o 
+	    $(CC) $(CFLAGS) part2.c -o part2.o 
 part1: 
 	./part1.o
 
