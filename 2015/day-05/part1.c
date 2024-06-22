@@ -29,23 +29,21 @@ int main() {
             if((ch == 'a' && line[i+1] == 'b') ||
                (ch == 'c' && line[i+1] == 'd') ||
                (ch == 'p' && line[i+1] == 'q') || 
-               (ch == 'x' && line[i+1] == 'y')) 
+               (ch == 'x' && line[i+1] == 'y'))
             {
                 break;
             }
+
             if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') { 
-            vowel_count++; 
+                vowel_count++; 
             }
-
-            if(vowel_count == 3) {
-                num_nice_string++;
-                break;
-            }
-
-            if(ch == line[i+1]) { 
-                num_nice_string++;
-                break;
-               }
+            
+        } for(i = 0; i < strlen(line); i++) { 
+                char ch = line[i]; 
+                if((vowel_count >= 3) && (ch == line[i-1]) && i > 0) { 
+                   num_nice_string++;
+                   break;
+                }       
         }
 
     }    
