@@ -2,21 +2,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int comp(const void* a, const void* b) 
-{ 
-    return (*(int*)a - *(int*)b);
-}
-
 int main() {
 
-    int col1 = 0;
-    int col2 = 0;
-
-    int arr1[1000];
-    int arr2[1000]; 
+    int arr1_data[1000];
     
     int i = 0;
-    int totalDistance = 0;
 
     int bufferLength = 1024;
     char buffer[bufferLength];
@@ -29,20 +19,8 @@ int main() {
         exit(-1);
     }
     
-    while(fgets(buffer, bufferLength, in_file)) { 
-        if(2==sscanf(buffer, "%i %i", &col1, &col2)) { 
-            //printf("a: %i   b: %i\b", col1, col2);
-            arr1[i] = col1;
-            arr2[i] = col2;
-            i++;        
-        }
-    }
-
-    qsort(arr1, 1000, sizeof(int), comp);
-    qsort(arr2, 1000, sizeof(int), comp);
-
-    for(int i = 0; i < 1000; i++) { 
-        totalDistance += abs(arr1[i] - arr2[i]);
+    while((ch != '\n') && (ch != EOF)) { 
+                
     }
     
     printf("Total distance %i: ", totalDistance);

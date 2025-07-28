@@ -5,47 +5,55 @@
 int main() { 
 
     char line[256];
-    int i;
-    int vowel_count;
     int num_nice_string = 0;
 
-    // declaring file input/output
     FILE *in_file = fopen("input.txt", "r"); 
-    // error checking for files
+    
     if(in_file == NULL) { 
         printf("Error! Count not open file!\n"); 
         exit(-1);             
     }
     
     while(fgets(line, sizeof(line), in_file)) { 
-        //        Test print
-        //        printf("%s", line); 
-        //
-        vowel_count = 0;
+        int vowel_count = 0;
+        int has_double = 0;
+        int is_naughty = 0;
 
-        for(i = 0; i < strlen(line); i++) { 
+        size_t len = strlen(line);
+        
+        if(line[len - 1] == '\n') { 
+            line[len - 1] = '\0';
+            len--; 
+        }
+
+        for(int i = 0; i < len; i++) { 
             char ch = line[i];
             
-            if((ch == 'a' && line[i+1] == 'b') ||
-               (ch == 'c' && line[i+1] == 'd') ||
-               (ch == 'p' && line[i+1] == 'q') || 
-               (ch == 'x' && line[i+1] == 'y'))
-            {
-                break;
-            }
-
+            // Count vowels
             if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') { 
                 vowel_count++; 
             }
             
-        } for(i = 0; i < strlen(line); i++) { 
-                char ch = line[i]; 
-                if((vowel_count >= 3) && (ch == line[i-1]) && i > 0) { 
-                   num_nice_string++;
-                   break;
-                }       
-        }
+            // Check for double leter
+            if(i < len - 1 && line[i] == line[i+1]) { 
+                has_double = 1;
+            }
 
+            // Checks for disallowed substrings
+            if(i < len - 1) { 
+                if((ch == 'a' && line[i+1] == 'b') ||
+                   (ch == 'c' && line[i+1] == 'd') ||
+                   (ch == 'p' && line[i+1] == 'q') ||
+                   (ch == 'x' && line[i+1] == 'y')) { 
+                    is_naughty = 1;
+                    break; 
+                }
+            }
+        } 
+        
+        if(!is_naughty && vowel_count >= 3 && has_double) { 
+            num_nice_string++;
+        }
     }    
         printf("Number of nice strings: %i\n", num_nice_string);    
     // closing files
